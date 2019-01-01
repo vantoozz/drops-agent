@@ -5,10 +5,8 @@ import "reflect-metadata";
 
 @injectable()
 export class StoreMessage {
-    private _storage: StorageInterface;
 
-    constructor(@inject(StorageType) storage: StorageInterface) {
-        this._storage = storage;
+    constructor(@inject(StorageType) private _storage: StorageInterface) {
     }
 
     public handle(message: Message): void {
