@@ -1,6 +1,7 @@
 import {Container} from "inversify";
 import {StorageServiceProvider} from "./Storage/StorageServiceProvider";
 import {LoggerServiceProvider} from "./Logger/LoggerServiceProvider";
+import {ServiceProvider} from "./ServiceProvider";
 
 const container = new Container;
 
@@ -10,7 +11,7 @@ const serviceProviders = [
 ];
 
 for (const serviceProvider of serviceProviders) {
-    (new serviceProvider(container)).register();
+    (<ServiceProvider>new serviceProvider(container)).register();
 }
 
 

@@ -3,9 +3,6 @@
     "lib": [
       "es6", "dom"
     ],
-    "types": [
-      "reflect-metadata"
-    ],
     "module": "commonjs",
     "moduleResolution": "node",
     "experimentalDecorators": true,
@@ -14,9 +11,6 @@
     "target": "es6",
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
     "outDir": "dist",
     "strict": true
   }
