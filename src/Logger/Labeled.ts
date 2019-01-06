@@ -2,7 +2,7 @@ import {LoggerInterface} from "./LoggerInterface";
 
 export class Labeled implements LoggerInterface {
 
-    constructor(private _logger: LoggerInterface) {
+    constructor(private readonly _logger: LoggerInterface) {
     }
 
     debug(message: string): void {

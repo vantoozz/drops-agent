@@ -4,11 +4,18 @@ import {LoggerInterface} from "../Logger/LoggerInterface";
 
 export class Logged implements StorageInterface {
 
-    constructor(private _storage: StorageInterface, private _logger: LoggerInterface) {
+    constructor(private readonly _storage: StorageInterface, private readonly _logger: LoggerInterface) {
     }
 
-    store(message: Message): void {
-        this._logger.info('[STORING MESSAGE]');
-        this._storage.store(message);
+    async store(message: Message): Promise<void> {
+        return new Promise((resolve, reject) => {
+            const start = Date.now();
+            this._logger.info('[STORING MESSAGE]');
+            this._storage.store(message).then(() => {
+                this._logger.info(`[STORED IN ${(Date.now() - start)} ms]`);
+                resolve();
+            }, reject);
+        });
+
     }
 }

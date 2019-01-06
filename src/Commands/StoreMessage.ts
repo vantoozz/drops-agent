@@ -6,10 +6,12 @@ import "reflect-metadata";
 @injectable()
 export class StoreMessage {
 
-    constructor(@inject(StorageType) private _storage: StorageInterface) {
+    constructor(@inject(StorageType) private readonly _storage: StorageInterface) {
     }
 
     public handle(message: Message): void {
-        this._storage.store(message);
+        (async (message: Message) => {
+            await this._storage.store(message);
+        })(message);
     }
 }

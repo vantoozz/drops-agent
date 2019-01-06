@@ -12,6 +12,7 @@
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "outDir": "dist",
+    "noEmitOnError": true,
     "strict": true
   }
 }

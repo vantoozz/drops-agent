@@ -9,7 +9,7 @@ import Context = interfaces.Context;
 export class StorageServiceProvider extends ServiceProvider {
 
     public register(): void {
-        this._container.bind<StorageInterface>(StorageType).toDynamicValue((context: Context) => {
+        this._container.bind(StorageType).toDynamicValue((context: Context) => {
             let storage = <StorageInterface>context.container.resolve(DummyStorage);
 
             storage = new Logged(storage, context.container.get(LoggerType));

@@ -7,11 +7,17 @@ import {LoggerInterface, LoggerType} from "../Logger/LoggerInterface";
 @injectable()
 export class DummyStorage implements StorageInterface {
 
-    constructor(@inject(LoggerType) private _logger: LoggerInterface) {
+    constructor(@inject(LoggerType) private readonly _logger: LoggerInterface) {
     }
 
-    store(message: Message): void {
-        this._logger.info(message.tag);
-        this._logger.info(message.date.toDateString());
+    async store(message: Message): Promise<void> {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                this._logger.info(message.tag);
+                this._logger.info(message.date.toDateString());
+                resolve();
+            }, Math.random() * 5000);
+        });
+
     }
 }

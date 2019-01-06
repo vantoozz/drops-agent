@@ -3,7 +3,7 @@ import {StoreMessage} from "./Commands/StoreMessage";
 import {container} from "./bootstrap";
 import dgram = require("dgram");
 
-const command = container.resolve<StoreMessage>(StoreMessage);
+const command = container.resolve(StoreMessage);
 
 const server = dgram.createSocket('udp4');
 
@@ -18,9 +18,7 @@ server.on('listening', () => {
 });
 
 server.on('message', (msg) => {
-    (async (message: Message) => {
-        await command.handle(message)
-    })(new Message(msg.toString('utf8'), new Date));
+    command.handle(new Message(msg.toString('utf8'), new Date));
 });
 
 server.bind(41234);
