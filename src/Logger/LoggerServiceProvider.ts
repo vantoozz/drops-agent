@@ -1,8 +1,8 @@
-import {ServiceProvider} from "../ServiceProvider";
-import {LoggerType} from "./LoggerInterface";
-import {ConsoleLogger} from "./ConsoleLogger";
-import {interfaces} from "inversify";
-import {Labeled} from "./Labeled";
+import {ServiceProvider} from '../ServiceProvider';
+import {LoggerType} from './LoggerInterface';
+import {ConsoleLogger} from './ConsoleLogger';
+import {interfaces} from 'inversify';
+import {Labeled} from './Labeled';
 import Context = interfaces.Context;
 
 export class LoggerServiceProvider extends ServiceProvider {

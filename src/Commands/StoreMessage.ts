@@ -1,17 +1,25 @@
-import {StorageInterface, StorageType} from "../Storage/StorageInterface";
-import {Message} from "../Message";
-import {inject, injectable} from "inversify"
-import "reflect-metadata";
+import {StorageInterface, StorageType} from '../Storage/StorageInterface';
+import {Message} from '../Message';
+import {inject, injectable} from 'inversify'
+import 'reflect-metadata';
+import {LoggerInterface, LoggerType} from '../Logger/LoggerInterface';
 
 @injectable()
 export class StoreMessage {
 
-    constructor(@inject(StorageType) private readonly _storage: StorageInterface) {
+    constructor(
+        @inject(StorageType) private readonly _storage: StorageInterface,
+        @inject(LoggerType) private readonly _logger: LoggerInterface
+    ) {
     }
 
     public handle(message: Message): void {
         (async (message: Message) => {
-            await this._storage.store(message);
+            try {
+                await this._storage.store([message]);
+            } catch (e) {
+                this._logger.error(e);
+            }
         })(message);
     }
 }

@@ -8,4 +8,4 @@ export interface LoggerInterface {
     debug(message: string): void;
 }
 
-export const LoggerType = Symbol.for("LoggerInterface");
+export const LoggerType = Symbol.for('LoggerInterface');

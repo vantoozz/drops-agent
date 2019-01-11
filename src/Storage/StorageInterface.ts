@@ -1,7 +1,7 @@
-import {Message} from "../Message";
+import {Message} from '../Message';
 
 export interface StorageInterface {
-    store(message: Message): Promise<void>;
+    store(messages: Message[]): Promise<void>;
 }
 
 export const StorageType = Symbol.for('StorageInterface');
