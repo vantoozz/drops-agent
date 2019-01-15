@@ -13,7 +13,7 @@ export class StorageServiceProvider extends ServiceProvider {
         this._container.bind(StorageType).toDynamicValue((context: Context) => {
             let storage = <StorageInterface>context.container.resolve(DummyStorage);
 
-            // storage = new Logged(storage, context.container.get(LoggerType));
+             storage = new Logged(storage, context.container.get(LoggerType));
             // storage = new Buffered(storage, 3, 10000);
 
             return storage;

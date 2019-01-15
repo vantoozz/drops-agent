@@ -15,7 +15,7 @@ export class Logged implements StorageInterface {
                 this._logger.info(`[STORED IN ${(Date.now() - start)} ms]`);
                 resolve();
             }).catch((e) => {
-                this._logger.error(e);
+                this._logger.error(e.toString());
                 reject();
             });
         });

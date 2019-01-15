@@ -18,7 +18,7 @@ export class StoreMessage {
             try {
                 await this._storage.store([message]);
             } catch (e) {
-                this._logger.error(e);
+                this._logger.error(e.toString());
             }
         })(message);
     }

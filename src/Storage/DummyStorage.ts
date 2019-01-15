@@ -14,7 +14,6 @@ export class DummyStorage implements StorageInterface {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (.5 <= Math.random()) {
-                    // throw 'some error!';
                     reject('some error');
                 }
                 for (const message of messages) {
