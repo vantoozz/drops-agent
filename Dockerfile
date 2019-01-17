@@ -9,7 +9,7 @@ RUN npm install typescript -g && npm install
 RUN tsc -p tsconfig.json --sourceMap false && npm uninstall -g typescript
 RUN rm -rf node_modules \
     && rm -rf src \
-    && npm install --no-dev \
+    && npm install --production \
     && rm package.json \
     && rm package-lock.json \
     && rm tsconfig.json \
