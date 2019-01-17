@@ -1,11 +1,6 @@
 export class Message {
 
-    private readonly _tag: string;
-    private readonly _date: Date;
-
-    constructor(tag: string, date: Date) {
-        this._tag = tag;
-        this._date = date;
+    constructor(private readonly _tag: string, private readonly _date: Date) {
     }
 
     public get tag(): string {

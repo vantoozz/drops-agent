@@ -18,5 +18,4 @@ export class ConsoleLogger implements LoggerInterface{
     debug(message: string): void {
         console.debug(message);
     }
-
 }
