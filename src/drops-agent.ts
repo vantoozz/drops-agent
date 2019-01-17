@@ -21,7 +21,7 @@ server.on('listening', () => {
 });
 
 server.on('message', (input: Uint8Array) => {
-    command.handle(new Message(input.toString(), new Date));
+    command.handle([new Message(input.toString(), new Date)]);
 });
 
 server.bind(Number(process.env.UDP_PORT));

@@ -13,13 +13,9 @@ export class StoreMessage {
     ) {
     }
 
-    public handle(message: Message): void {
-        (async (message: Message) => {
-            try {
-                await this._storage.store([message]);
-            } catch (e) {
-                this._logger.error(e.toString());
-            }
-        })(message);
+    public handle(messages: Message[]): void {
+        this._storage.store(messages).catch((e) => {
+            this._logger.error(e.toString());
+        });
     }
 }

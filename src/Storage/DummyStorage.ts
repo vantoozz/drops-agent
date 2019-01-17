@@ -14,7 +14,7 @@ export class DummyStorage implements StorageInterface {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (.5 <= Math.random()) {
-                    reject('some error');
+                    return reject('some error');
                 }
                 for (const message of messages) {
                     this._logger.info(`message.tag: ${message.tag}`);

@@ -10,21 +10,19 @@ export class Buffered implements StorageInterface {
         private readonly _maxBufferSize: number,
         private readonly _flushInterval: number
     ) {
-        setInterval(() => {
-            this.flush();
+        setInterval(async () => {
+            await this.flush();
         }, this._flushInterval);
     }
 
-    private flush(): void {
+    private async flush(): Promise<void> {
         if (0 >= this._buffer.length) {
             return;
         }
         const messages = this._buffer;
         this._buffer = [];
 
-        (async (messages: Message[]) => {
-            await this._storage.store(messages);
-        })(messages);
+        await this._storage.store(messages);
     }
 
     store(messages: Message[]): Promise<void> {
@@ -32,12 +30,12 @@ export class Buffered implements StorageInterface {
         this._buffer = this._buffer.concat(messages);
 
         if (this._maxBufferSize <= this._buffer.length) {
-            this.flush();
+            this.flush().catch((e) => {
+                return Promise.reject(e);
+            });
         }
 
-        return new Promise((resolve) => {
-            resolve();
-        });
+        return Promise.resolve();
     }
 
 }
