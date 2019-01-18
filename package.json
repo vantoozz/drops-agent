@@ -9,14 +9,18 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "ts-node src/drops-agent.ts"
+    "start": "ts-node src/drops-agent.ts",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^10.12.18",
     "@types/dotenv": "^6.1.0",
     "@types/elasticsearch": "^5.0.30",
+    "@types/jest": "^23.3.12",
+    "@types/node": "^10.12.18",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.2"
   },

@@ -1,4 +1,4 @@
-import {Message} from "../Message";
+import {Message} from '../Message';
 
 type InputMessage = {
     tag: string,
@@ -14,17 +14,22 @@ export class JsonMessageHydrator {
         return new Message(this.hydrateTag(data), this.hydrateContext(data), this.hydrateDate(data))
     }
 
-    private static hydrateDate(data: InputMessage): Date {
-        if (undefined === data.date) {
-            return new Date;
+    private static hydrateTag(data: InputMessage): string {
+        if (undefined === data.tag) {
+            throw 'No tag given';
         }
 
-        const date = new Date(data.date);
-        if (isNaN(date.getTime())) {
-            throw "Bad date format";
+        if ('string' !== typeof data.tag) {
+            throw 'Tag must be a string';
         }
 
-        return date;
+        const tag = data.tag.trim();
+
+        if ('' === tag) {
+            throw 'Tag must be not empty';
+        }
+
+        return tag;
     }
 
     private static hydrateContext(data: InputMessage): object {
@@ -32,28 +37,23 @@ export class JsonMessageHydrator {
             return {};
         }
 
-        if ("object" !== typeof data.context) {
-            throw "Context must be an object";
+        if ('object' !== typeof data.context) {
+            throw 'Context must be an object';
         }
 
         return data.context;
     }
 
-    private static hydrateTag(data: InputMessage): string {
-        if (undefined === data.tag) {
-            throw "No tag given";
+    private static hydrateDate(data: InputMessage): Date {
+        if (undefined === data.date) {
+            return new Date;
         }
 
-        if ("string" !== typeof data.tag) {
-            throw "Tag must be a string";
+        const date = new Date(data.date);
+        if (isNaN(date.getTime())) {
+            throw 'Bad date format';
         }
 
-        const tag = data.tag.trim();
-
-        if ("" === tag) {
-            throw "Tag must be not empty";
-        }
-
-        return tag;
+        return date;
     }
 }
