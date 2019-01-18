@@ -1,5 +1,4 @@
 import {container} from './bootstrap';
-import {Message} from './Message';
 import {StoreMessage} from './Commands/StoreMessage';
 import {LoggerInterface, LoggerType} from './Logger/LoggerInterface';
 import {AddressInfo} from 'net';
@@ -22,7 +21,7 @@ server.on('listening', () => {
 
 server.on('message', (input: Uint8Array) => {
     logger.debug(`Message got: ${input.toString()}`);
-    command.handle([new Message(input.toString(), new Date)]);
+    command.handle(input.toString());
 });
 
 server.bind(Number(process.env.UDP_PORT));
