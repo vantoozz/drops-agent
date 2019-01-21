@@ -1,12 +1,10 @@
 import {StorageInterface, StorageType} from "./StorageInterface";
 import {Message} from "../Message";
 import {Client} from "elasticsearch";
-import {inject, injectable} from "inversify";
 
-@injectable()
 export class ElasticsearchStorage implements StorageInterface {
 
-    constructor(@inject(Client) private readonly _elasticsearch: Client){
+    constructor(private readonly _elasticsearch: Client, private readonly _index: string){
     }
 
     store(messages: Message[]): Promise<void> {
