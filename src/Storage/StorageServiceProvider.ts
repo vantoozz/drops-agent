@@ -22,7 +22,7 @@ export class StorageServiceProvider extends ServiceProvider {
             );
 
             storage = new Logged(storage, context.container.get(LoggerType));
-            storage = new Buffered(storage, 1000, 1000*10);
+            storage = new Buffered(storage, 9000, 1000*60);
 
             return storage;
         });
