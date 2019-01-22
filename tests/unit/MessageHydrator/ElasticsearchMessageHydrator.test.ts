@@ -1,5 +1,5 @@
-import {Message} from "../../../src/Message";
 import {ElasticsearchMessageHydrator} from "../../../src/MessageHydrator/ElasticsearchMessageHydrator";
+import {Message} from "../../../src/Message";
 
 test('it extracts a message into an object', () => {
     const message = new Message("some tag", {}, new Date);
@@ -13,10 +13,11 @@ test('it extracts tag into string', () => {
     expect(data.tag).toBe("some tag");
 });
 
-test('it extracts date into string', () => {
+test('it extracts date', () => {
     const message = new Message("some tag", {}, new Date("2019-01-15T09:23:34.000Z"));
     const data = ElasticsearchMessageHydrator.extract(message);
-    expect(data.timestamp).toBe("20190115T092334Z");
+    expect(data.timestamp).toBeInstanceOf(Date);
+    expect(data.timestamp.toISOString()).toBe('2019-01-15T09:23:34.000Z');
 });
 
 test('it avoids empty context', () => {

@@ -1,7 +1,6 @@
 import {JsonMessageHydrator} from "../../../src/MessageHydrator/JsonMessageHydrator";
 import {Message} from "../../../src/Message";
 
-
 test('it parses json to a message', () => {
     const message = JsonMessageHydrator.hydrate('{"tag": "some tag"}');
     expect(message).toBeInstanceOf(Message);
