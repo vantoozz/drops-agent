@@ -1,19 +1,23 @@
 FROM node:10
 
-WORKDIR /app
+WORKDIR /build
 
-COPY package.json package-lock.json tsconfig.json /app/
-COPY src /app/src
+COPY . /build/
 
-RUN npm install typescript -g && npm install
+RUN rm -rf dist \
+    &&  rm -rf node_modules \
+    && npm install typescript -g \
+    && npm install
+
 RUN tsc -p tsconfig.json --sourceMap false && npm uninstall -g typescript
+
 RUN rm -rf node_modules \
-    && rm -rf src \
     && npm install --production \
-    && rm package.json \
-    && rm package-lock.json \
-    && rm tsconfig.json \
-    && mv dist/* . \
-    && rm -rf dist/
+    && mkdir /app \
+    && mv dist/* /app \
+    && mv node_modules /app \
+    && rm -rf /build
+
+WORKDIR /app
 
 CMD node drops-agent.js
