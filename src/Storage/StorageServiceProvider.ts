@@ -22,7 +22,12 @@ export class StorageServiceProvider extends ServiceProvider {
             );
 
             storage = new Logged(storage, context.container.get(LoggerType));
-            storage = new Buffered(storage, 9000, 1000*60);
+
+            storage = new Buffered(
+                storage,
+                Number(process.env.BUFFER_MAX_SIZE) || 1000,
+                Number(process.env.BUFFER_FLUSH_INTERVAL_MS) || 1000
+            );
 
             return storage;
         });

@@ -7,6 +7,8 @@ services:
     ports:
       - "9300:9300"
       - "9200:9200"
+    volumes:
+      - drops_elasticsearch_data:/usr/share/elasticsearch/data
   kibana:
     image: docker.elastic.co/kibana/kibana-oss:6.5.4
     environment:
@@ -18,3 +20,21 @@ services:
     image: grafana/grafana
     ports:
       - "3000:3000"
+    volumes:
+      - drops_grafana_data:/var/lib/grafana
+  drops_agent:
+    build: .
+    ports:
+      - "42345:42345/udp"
+    environment:
+      UDP_PORT: 42345
+      STORAGE_DRIVER: elasticsearch
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_INDEX: drops
+      BUFFER_MAX_SIZE: 5000
+      BUFFER_FLUSH_INTERVAL_MS: 2000
+volumes:
+  drops_elasticsearch_data:
+    driver: local
+  drops_grafana_data:
+    driver: local

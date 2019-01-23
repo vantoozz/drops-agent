@@ -7,7 +7,7 @@ export class Buffered implements StorageInterface {
 
     constructor(
         private readonly _storage: StorageInterface,
-        private readonly _maxBufferSize: number,
+        private readonly _maxSize: number,
         private readonly _flushInterval: number
     ) {
         setInterval(async () => {
@@ -19,7 +19,7 @@ export class Buffered implements StorageInterface {
 
         this._buffer = this._buffer.concat(messages);
 
-        if (this._maxBufferSize <= this._buffer.length) {
+        if (this._maxSize <= this._buffer.length) {
             this.flush().catch((e) => {
                 return Promise.reject(e);
             });
