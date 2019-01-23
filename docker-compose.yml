@@ -4,18 +4,20 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
     environment:
       - discovery.type=single-node
+#      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
     ports:
       - "9300:9300"
       - "9200:9200"
     volumes:
       - drops_elasticsearch_data:/usr/share/elasticsearch/data
-  kibana:
-    image: docker.elastic.co/kibana/kibana-oss:6.5.4
-    environment:
-      SERVER_NAME: localhost
-      ELASTICSEARCH_URL: http://elasticsearch:9200/
-    ports:
-      - "5601:5601"
+#  kibana:
+#    image: docker.elastic.co/kibana/kibana-oss:6.5.4
+#    environment:
+#      SERVER_NAME: localhost
+#      ELASTICSEARCH_URL: http://elasticsearch:9200/
+#    ports:
+#      - "5601:5601"
   grafana:
     image: grafana/grafana
     ports:
@@ -31,8 +33,8 @@ services:
       STORAGE_DRIVER: elasticsearch
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_INDEX: drops
-      BUFFER_MAX_SIZE: 5000
-      BUFFER_FLUSH_INTERVAL_MS: 3000
+      BUFFER_MAX_SIZE: 9000
+      BUFFER_FLUSH_INTERVAL_MS: 30000
 volumes:
   drops_elasticsearch_data:
     driver: local
