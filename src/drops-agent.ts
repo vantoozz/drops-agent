@@ -20,6 +20,7 @@ server.on('listening', () => {
 });
 
 server.on('message', (input: Uint8Array) => {
+    logger.debug(`Message got: ${input.toString()}`);
     command.handle(input.toString());
 });
 
