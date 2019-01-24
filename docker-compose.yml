@@ -4,11 +4,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
     environment:
       - discovery.type=single-node
-#      - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
-    ports:
-      - "9300:9300"
-      - "9200:9200"
     volumes:
       - drops_elasticsearch_data:/usr/share/elasticsearch/data
 #  kibana:
@@ -35,6 +31,7 @@ services:
       ELASTICSEARCH_INDEX: drops
       BUFFER_MAX_SIZE: 9000
       BUFFER_FLUSH_INTERVAL_MS: 30000
+      SENTRY_DSN: ${SENTRY_DSN}
 volumes:
   drops_elasticsearch_data:
     driver: local
