@@ -11,20 +11,18 @@ export class Logged implements StorageInterface {
     }
 
     async store(messages: Message[]): Promise<void> {
-        return new Promise(async (resolve, reject) => {
-            const start = Date.now();
-            this._logger.info(`[STORING ${(messages.length)} MESSAGES]`);
+        const start = Date.now();
 
-            try {
-                await this._storage.store(messages);
-            } catch (e) {
-                this._logger.error(`{LOGGED} ${e.toString()}`);
-                return reject(e);
-            }
+        this._logger.info(`[STORING ${(messages.length)} MESSAGES]`);
 
-            this._logger.info(`[STORED IN ${(Date.now() - start)} ms]`);
+        try {
+            await this._storage.store(messages);
+        } catch (e) {
+            this._logger.error(`{LOGGED} ${e.toString()}`);
+            throw e;
+        }
 
-            resolve();
-        });
+        this._logger.info(`[STORED IN ${(Date.now() - start)} ms]`);
+
     }
 }

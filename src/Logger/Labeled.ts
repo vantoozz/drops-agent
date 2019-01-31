@@ -2,22 +2,22 @@ import {LoggerInterface} from './LoggerInterface';
 
 export class Labeled implements LoggerInterface {
 
-    constructor(private readonly _logger: LoggerInterface) {
+    constructor(private readonly logger: LoggerInterface) {
     }
 
     debug(message: string): void {
-        this._logger.debug('[DEBUG] ' + message);
+        this.logger.debug(`[DEBUG] ${message}`);
     }
 
     error(message: string): void {
-        this._logger.error('[ERROR] ' + message);
+        this.logger.error(`[ERROR] ${message}`);
     }
 
     info(message: string): void {
-        this._logger.info('[INFO] ' + message);
+        this.logger.info(`[INFO] ${message}`);
     }
 
     warn(message: string): void {
-        this._logger.warn('[WARN] ' + message);
+        this.logger.warn(`[WARN] ${message}`);
     }
 }

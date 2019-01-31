@@ -15,17 +15,13 @@ export class Buffered implements StorageInterface {
         }, this._flushInterval);
     }
 
-    store(messages: Message[]): Promise<void> {
+    async store(messages: Message[]): Promise<void> {
 
         this._buffer = this._buffer.concat(messages);
 
         if (this._maxSize <= this._buffer.length) {
-            this.flush().catch((e) => {
-                return Promise.reject(e);
-            });
+            await this.flush();
         }
-
-        return Promise.resolve();
     }
 
     private async flush(): Promise<void> {
