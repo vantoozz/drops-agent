@@ -20,4 +20,4 @@ RUN npm ci --production \
 
 WORKDIR /app
 
-CMD node drops-agent.js
+ENTRYPOINT ["node", "drops-agent.js"]
