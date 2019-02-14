@@ -21,7 +21,7 @@ services:
     volumes:
       - drops_grafana_data:/var/lib/grafana
   drops_agent:
-    build: .
+    image: vantoozz/drops-agent
     ports:
       - "42345:42345/udp"
     environment:
