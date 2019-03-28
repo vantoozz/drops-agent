@@ -4,7 +4,7 @@ import {LoggerInterface, LoggerType} from './Logger/LoggerInterface';
 import {AddressInfo} from 'net';
 
 const command = container.resolve(StoreMessage);
-const logger = <LoggerInterface>container.get(LoggerType);
+const logger = container.get<LoggerInterface>(LoggerType);
 const server = require('dgram').createSocket('udp4');
 
 let shuttingDown = false;
