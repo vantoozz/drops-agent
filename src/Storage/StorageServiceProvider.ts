@@ -1,4 +1,4 @@
-import {StorageInterface, StorageType} from './StorageInterface';
+import {StorageInterface} from './StorageInterface';
 import {ServiceProvider} from '../ServiceProvider';
 import {interfaces} from 'inversify';
 import {Logged} from './Logged';
@@ -7,12 +7,13 @@ import {Buffered} from './Buffered';
 import {ElasticsearchStorage} from './ElasticsearchStorage';
 import {Client} from 'elasticsearch';
 import {DummyStorage} from './DummyStorage';
+import {BufferedStorageType} from "./BufferedStorageInterface";
 import Context = interfaces.Context;
 
 export class StorageServiceProvider extends ServiceProvider {
 
     public register(): void {
-        this.container.bind(StorageType).toDynamicValue((context: Context) => {
+        this.container.bind(BufferedStorageType).toDynamicValue((context: Context) => {
 
             let storage: StorageInterface;
 
@@ -23,14 +24,8 @@ export class StorageServiceProvider extends ServiceProvider {
 
             storage = new Logged(storage, context.container.get(LoggerType));
 
-            storage = new Buffered(
-                storage,
-                Number(process.env.BUFFER_MAX_SIZE) || 1000,
-                Number(process.env.BUFFER_FLUSH_INTERVAL_MS) || 1000
-            );
-
-            return storage;
-        });
+            return new Buffered(storage, Number(process.env.BUFFER_MAX_SIZE) || 1000);
+        }).inSingletonScope();
     }
 
     private static makeStorage(driver: string, context: Context): StorageInterface {

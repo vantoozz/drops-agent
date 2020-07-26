@@ -1,18 +1,15 @@
 import {StorageInterface} from './StorageInterface';
 import {Message} from '../Message';
+import {BufferedStorageInterface} from "./BufferedStorageInterface";
 
-export class Buffered implements StorageInterface {
+export class Buffered implements BufferedStorageInterface {
 
     private _buffer: Message[] = [];
 
     constructor(
         private readonly _storage: StorageInterface,
-        private readonly _maxSize: number,
-        private readonly _flushInterval: number
+        private readonly _maxSize: number
     ) {
-        setInterval(async () => {
-            return this.flush();
-        }, this._flushInterval);
     }
 
     async store(messages: Message[]): Promise<void> {
@@ -24,7 +21,7 @@ export class Buffered implements StorageInterface {
         }
     }
 
-    private async flush(): Promise<void> {
+    public async flush(): Promise<void> {
         if (0 >= this._buffer.length) {
             return;
         }
@@ -33,5 +30,4 @@ export class Buffered implements StorageInterface {
 
         return this._storage.store(messages);
     }
-
 }

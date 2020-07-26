@@ -1,15 +1,16 @@
-import {StorageInterface, StorageType} from '../Storage/StorageInterface';
+import {StorageInterface} from '../Storage/StorageInterface';
 import {inject, injectable} from 'inversify'
 import 'reflect-metadata';
 import {LoggerInterface, LoggerType} from '../Logger/LoggerInterface';
 import {JsonMessageHydrator} from '../MessageHydrator/JsonMessageHydrator';
 import {Message} from '../Message';
+import {BufferedStorageType} from "../Storage/BufferedStorageInterface";
 
 @injectable()
 export class StoreMessage {
 
     constructor(
-        @inject(StorageType) private readonly storage: StorageInterface,
+        @inject(BufferedStorageType) private readonly storage: StorageInterface,
         @inject(LoggerType) private readonly logger: LoggerInterface,
     ) {
     }

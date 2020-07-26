@@ -1,4 +1,4 @@
-FROM node:10 as typescript
+FROM node:12 as typescript
 
 RUN npm install typescript -g
 

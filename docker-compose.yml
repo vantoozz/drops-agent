@@ -1,19 +1,19 @@
 version: "3"
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
     environment:
       - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
     volumes:
       - drops_elasticsearch_data:/usr/share/elasticsearch/data
-#  kibana:
-#    image: docker.elastic.co/kibana/kibana-oss:6.5.4
-#    environment:
-#      SERVER_NAME: localhost
-#      ELASTICSEARCH_URL: http://elasticsearch:9200/
-#    ports:
-#      - "5601:5601"
+  kibana:
+    image: docker.elastic.co/kibana/kibana-oss:7.8.0
+    environment:
+      SERVER_NAME: localhost
+      ELASTICSEARCH_URL: http://elasticsearch:9200/
+    ports:
+      - "5601:5601"
   grafana:
     image: grafana/grafana
     ports:
@@ -21,7 +21,7 @@ services:
     volumes:
       - drops_grafana_data:/var/lib/grafana
   drops_agent:
-    image: vantoozz/drops-agent
+    build: .
     ports:
       - "42345:42345/udp"
     environment:
